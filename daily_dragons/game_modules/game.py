@@ -1,7 +1,10 @@
 import pyglet
+import glooey
 from typing import Dict
 
 import start_menu
+from start_menu import NameForm
+from start_menu import Boy, Girl
 from planet import Planet
 from player import Player
 from investment_options import InvestmentOptions
@@ -10,7 +13,14 @@ from investment_options import InvestmentOptions
 class Game:
     def __init__(self) -> None:
         self.start_window = pyglet.window.Window()
-        self.start_menu = start_menu.make_gui(self.start_window)
+        self.boy = Boy()
+        self.girl = Girl()
+        self.namefield = NameForm()
+        gui = glooey.Gui(self.start_window)
+        self.start_menu = start_menu.make_gui(gui, self.boy, self.girl, self.namefield)
+
+        # TODO: write screens for main game and desktop
+
 
 
         # self.player = Player(name)

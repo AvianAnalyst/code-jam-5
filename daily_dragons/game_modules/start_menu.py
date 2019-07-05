@@ -1,6 +1,9 @@
 import pyglet
 import glooey
 
+pyglet.resource.path = ['resources/imgs/menu', 'resources/imgs/player']
+pyglet.resource.reindex()
+
 
 left = 'form_left.png'
 right = 'form_right.png'

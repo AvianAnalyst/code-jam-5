@@ -1,7 +1,8 @@
 import pyglet
 import glooey
 
-pyglet.resource.path = ['resources/imgs/menu', 'resources/imgs/player']
+pyglet.resource.path.append('resources/imgs/menu')
+pyglet.resource.path.append('resources/imgs/player')
 pyglet.resource.reindex()
 
 
@@ -18,6 +19,7 @@ class NamePrompt(glooey.Label):
 class NameForm(glooey.Form):
     custom_alignment = 'top'
 
+
     class Label(glooey.EditableLabel):
         custom_font_name = 'Times New Roman'
         custom_font_size = 10
@@ -33,14 +35,22 @@ class NameForm(glooey.Form):
         custom_right = pyglet.resource.texture(right)
 
 
+    def __init__(self):
+        super().__init__()
+        self.name = None
+
+    def on_unfocus(self):
+        self.name = self.get_text()
+
+
 class Boy(glooey.Button):
     class Background(glooey.Image):
-        custom_image = pyglet.resource.texture('boy-idle-1.png')
+        custom_image = pyglet.resource.texture('boy Idle (1).png')
 
 
 class Girl(glooey.Button):
     class Background(glooey.Image):
-        custom_image = pyglet.resource.texture('girl-idle-1.png')
+        custom_image = pyglet.resource.texture('girl Idle (1).png')
 
 
 def make_gui(window: pyglet.window.Window) -> glooey.Gui:
@@ -48,23 +58,11 @@ def make_gui(window: pyglet.window.Window) -> glooey.Gui:
     screen = glooey.VBox()
     bottom = glooey.HBox()
 
-    global player
-
-    def select_player(x: glooey.Widget):
-        global player
-        if x == Boy:
-            player = 'boy'
-        else:
-            player = 'girl'
-
     boy = Boy()
     girl = Girl()
-    boy.push_handlers(on_click=select_player(Boy))
-    girl.push_handlers(on_click=select_player(Girl))
 
-    bottom.add(Boy())
-    bottom.add(Girl())
-    # bottom.add(glooey.Placeholder())
+    bottom.add(boy)
+    bottom.add(girl)
 
     screen.add(NamePrompt(), size=0)
     screen.add(NameForm(), size=0)

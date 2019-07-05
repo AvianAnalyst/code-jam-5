@@ -1,7 +1,7 @@
 from typing import List
-from .news import News
-from .organization import Organization
-from .policy import Policy
+from news import News
+from organization import Organization
+from policy import Policy
 
 
 class Investment:

@@ -39,8 +39,8 @@ class NameForm(glooey.Form):
         super().__init__()
         self.name = None
 
-    def on_unfocus(self):
-        self.name = self.get_text()
+    def on_unfocus(self, text):
+        self.name = text
 
 
 class Boy(glooey.Button):
@@ -53,20 +53,23 @@ class Girl(glooey.Button):
         custom_image = pyglet.resource.texture('girl Idle (1).png')
 
 
-def make_gui(window: pyglet.window.Window) -> glooey.Gui:
-    gui = glooey.Gui(window)
-    screen = glooey.VBox()
-    bottom = glooey.HBox()
+class StartMenu(glooey.Gui):
+    def __init__(self, window):
+        self.gui = super().__init__(window)
 
-    boy = Boy()
-    girl = Girl()
+        self.screen = glooey.VBox()
+        self.bottom = glooey.HBox()
 
-    bottom.add(boy)
-    bottom.add(girl)
+        self.boy = Boy()
+        self.girl = Girl()
 
-    screen.add(NamePrompt(), size=0)
-    screen.add(NameForm(), size=0)
-    screen.add(bottom, size='expand')
-    gui.add(screen)
+        self.bottom.add(self.boy)
+        self.bottom.add(self.girl)
 
-    return gui
+        self.name_field = NameForm()
+
+        self.screen.add(NamePrompt(), size=0)
+        self.screen.add(self.name_field, size=0)
+        self.screen.add(self.bottom, size='expand')
+
+        self.gui.add(self.screen)

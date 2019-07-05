@@ -1,8 +1,8 @@
 # TODO convert to load from json
-from .investment import Investment
-from .organization import Organization
-from .planetary_effects import PlanetaryEffects
-from .policy import Policy
+from investment import Investment
+from organization import Organization
+from planetary_effects import PlanetaryEffects
+from policy import Policy
 import json
 from typing import Dict
 

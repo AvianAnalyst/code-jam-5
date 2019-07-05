@@ -1,4 +1,4 @@
-from .planetary_effects import PlanetaryEffects
+from planetary_effects import PlanetaryEffects
 
 
 class Policy:
